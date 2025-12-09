@@ -48,6 +48,17 @@ app.use(cors({
     if (!origin && process.env.NODE_ENV === 'development') {
       return callback(null, true);
     }
+    
+    // Autoriser les domaines Vercel (pattern: *.vercel.app)
+    if (origin && origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+    
+    // Autoriser les domaines Render (pattern: *.onrender.com)
+    if (origin && origin.endsWith('.onrender.com')) {
+      return callback(null, true);
+    }
+    
     // Autoriser les origines dans la liste
     if (allowedOrigins.includes(origin) || !origin) {
       callback(null, true);
